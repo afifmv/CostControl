@@ -1,4 +1,4 @@
-package main.model.Exceptions;
+package main.exceptions;
 
 public class InvalidPriceRangeException extends Exception {
     public InvalidPriceRangeException() {

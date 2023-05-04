@@ -1,9 +1,9 @@
-package main.tests;
+package main.test;
 
 import main.model.Account;
 import main.model.Earning;
-import main.model.Exceptions.InvalidCategoryException;
-import main.model.Exceptions.InvalidPriceRangeException;
+import main.exceptions.InvalidCategoryException;
+import main.exceptions.InvalidPriceRangeException;
 import main.model.Expense;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

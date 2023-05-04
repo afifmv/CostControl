@@ -36,6 +36,20 @@ public class Account {
         return totalExpenses;
     }
 
+    // EFFECTS: Displays all expenses in a specific format
+    public void displayExpenses() {
+        for (Expense e: expenses) {
+            System.out.println("You have spent: " + e.getPrice() + "\n for " + e.getReason());
+        }
+    }
+
+    // EFFECTS: Display all earnings in a specific format
+    public void displayEarnings() {
+        for (Earning e: earnings) {
+            System.out.println("You have spent: " + e.getPrice() + "\n for " + e.getReason());
+        }
+    }
+
     // EFFECTS: Returns the net amount, i.e, earnings - expenses.
     public int netAmount() {
         return computeEarnings() - computeExpenses();

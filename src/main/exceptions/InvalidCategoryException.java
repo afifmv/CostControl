@@ -1,4 +1,4 @@
-package main.model.Exceptions;
+package main.exceptions;
 
 public class InvalidCategoryException extends Exception{
     public void InvalidCategoryException() {

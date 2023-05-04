@@ -1,7 +1,7 @@
 package main.model;
 
-import main.model.Exceptions.InvalidCategoryException;
-import main.model.Exceptions.InvalidPriceRangeException;
+import main.exceptions.InvalidCategoryException;
+import main.exceptions.InvalidPriceRangeException;
 
 public class Expense extends Expenditure {
     private CATEGORY category;
@@ -13,13 +13,13 @@ public class Expense extends Expenditure {
 
     private void processCategory(String category) throws InvalidCategoryException {
         String lowerCaseCategory = category.toLowerCase();
-        if (lowerCaseCategory == "travel") {
+        if (lowerCaseCategory.equals("travel")) {
             this.category = CATEGORY.TRAVEL;
-        } else if (lowerCaseCategory == "entertainment") {
+        } else if (lowerCaseCategory.equals("entertainment")) {
             this.category = CATEGORY.ENTERTAINMENT;
-        } else if (lowerCaseCategory == "food") {
+        } else if (lowerCaseCategory.equals("food")) {
             this.category = CATEGORY.FOOD;
-        } else if (lowerCaseCategory == "fees") {
+        } else if (lowerCaseCategory.equals("fees")) {
             this.category = CATEGORY.FEES;
         } else {
             throw new InvalidCategoryException();

@@ -2,7 +2,7 @@ package main.ui;
 
 import main.model.Account;
 import main.model.Earning;
-import main.model.Exceptions.InvalidPriceRangeException;
+import main.exceptions.InvalidPriceRangeException;
 import main.model.Expense;
 
 import java.util.Scanner;
@@ -40,18 +40,23 @@ public class App {
     }
 
     private void processCommand(String command) {
-        if (command.equals("1")) {
+        if (command.equals("0")) {
+            keepRunning = false;
+        } else if (command.equals("1")) {
             processAddExpense();
         } else if (command.equals("2")) {
             processAddEarning();
-        } else if (command.equals("0")) {
-            keepRunning = false;
+        }  else if (command.equals("3")) {
+            account.displayExpenses();
+        } else if (command.equals("4")) {
+            account.displayEarnings();
         } else {
             System.out.println("Invalid input, try again");
             command = input.next();
             processCommand(command);
         }
     }
+
 
     // MODIFIES: this
     // EFFECTS: adds a new earning as given to account
@@ -73,6 +78,7 @@ public class App {
         try {
             earning = new Earning(reason, price);
         } catch (InvalidPriceRangeException e) {
+            System.out.println("Try again!");
             createEarning();
         }
     }
@@ -82,7 +88,7 @@ public class App {
     private void processAddExpense() {
         createExpense();
         account.addExpenses(expense);
-        System.out.println("Expense added succesfully");
+        System.out.println("Expense added successfully");
     }
 
     // MODIFIES: this
@@ -110,6 +116,8 @@ public class App {
         System.out.println("Welcome to Cost Control " + account.getName());
         System.out.println("To add a new expense, click 1.");
         System.out.println("To add a new earning, click 2.");
+        System.out.println("To view all expenses, click 3.");
+        System.out.println("To view all earnings, click 4.");
         System.out.println("To quit, click 0.");
     }
 

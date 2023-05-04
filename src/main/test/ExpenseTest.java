@@ -1,33 +1,37 @@
-package main.tests;
+package main.test;
 
-import main.model.Earning;
-import main.model.Exceptions.InvalidPriceRangeException;
+import main.exceptions.InvalidCategoryException;
+import main.exceptions.InvalidPriceRangeException;
+import main.model.Expense;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EarningTest {
-    private Earning expense;
+public class ExpenseTest {
+    private Expense expense;
 
     @BeforeEach
     public void setup() {
         try {
-            expense = new Earning("UBC tuition fees", 24000);
+            expense = new Expense("UBC tuition fees", 24000, "Food");
         } catch (InvalidPriceRangeException e) {
             fail("Unexpected InvalidPriceRangeException");
+        } catch (InvalidCategoryException e) {
+            fail("Unexpected InvalidCategoryException");
         }
     }
 
     @Test
     public void testPriceNegative() {
         try {
-            Earning e = new Earning("Foo", -1);
+            Expense e = new Expense("Foo", -1, "entertainment");
             fail("Expected InvalidPriceRangeException");
         } catch (InvalidPriceRangeException ex) {
             assertTrue(true);
+        } catch (InvalidCategoryException e) {
+            fail("boo InvalidCategoryException");
         }
-
     }
     @Test
     public void testConstructor() {

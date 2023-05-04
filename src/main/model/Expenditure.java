@@ -1,6 +1,6 @@
 package main.model;
 
-import main.model.Exceptions.InvalidPriceRangeException;
+import main.exceptions.InvalidPriceRangeException;
 
 import java.time.LocalDate;
 
@@ -10,7 +10,6 @@ public abstract class Expenditure {
     private LocalDate date;
     private CATEGORY category;
 
-    // TODO: IMPLEMENT CATEGORY
     // TODO: CREATE USER AUTHENTICATION
     // REQUIRES: price, quantity >= 0
     public Expenditure(String reason, int price) throws InvalidPriceRangeException {
@@ -34,4 +33,5 @@ public abstract class Expenditure {
     private enum CATEGORY {
         TRAVEL, ENTERTAINMENT, FOOD, SCHOOL, OTHER
     }
+
 }

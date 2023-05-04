@@ -1,6 +1,6 @@
 package main.model;
 
-import main.model.Exceptions.InvalidPriceRangeException;
+import main.exceptions.InvalidPriceRangeException;
 
 public class Earning extends Expenditure {
     public Earning(String reason, int price) throws InvalidPriceRangeException {
