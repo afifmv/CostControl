@@ -15,7 +15,7 @@ public class UserTest {
     @BeforeEach
     public void setup() throws AccountNameNotSameException {
         account = new Account("Afif");
-        user = new User("Afif", "zebra123", account);
+        user = new User("Afif", "zebra123");
     }
 
     @Test
@@ -27,11 +27,6 @@ public class UserTest {
 
     @Test
     public void testConstructorNotSameNameAsAccount() {
-        try {
-            User user21 = new User("Azim","john123", account);
-            fail("Expected AccountNotSameException");
-        } catch (AccountNameNotSameException e) {
-            // yay
-        }
+        User user21 = new User("Azim","john123");
     }
 }

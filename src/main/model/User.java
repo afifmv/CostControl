@@ -1,7 +1,5 @@
 package main.model;
 
-import main.exceptions.AccountNameNotSameException;
-
 import java.util.Objects;
 
 // Represents a single user for authentication purposes
@@ -10,13 +8,10 @@ public class User {
     private String password;
     private final Account account;
 
-    public User(String username, String password, Account account) throws AccountNameNotSameException {
-        if (username != account.getName()) {
-            throw new AccountNameNotSameException();
-        }
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.account = account;
+        this.account = new Account(username);
     }
 
     public String getUsername() {

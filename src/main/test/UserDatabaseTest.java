@@ -3,13 +3,13 @@ package main.test;
 import main.exceptions.AccountNameNotSameException;
 import main.exceptions.UserAlreadyExistsException;
 import main.exceptions.UserNotFoundException;
-import main.model.Account;
 import main.model.User;
 import main.model.UserDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class UserDatabaseTest {
     private UserDatabase userDatabase;
@@ -20,8 +20,8 @@ public class UserDatabaseTest {
     @BeforeEach
     public void setup() throws AccountNameNotSameException, UserAlreadyExistsException {
         userDatabase = userDatabase.getInstance();
-        user1 = new User("Afif","zebra123", new Account("Afif"));
-        user2 = new User("Azim", "john123", new Account("Azim"));
+        user1 = new User("Afif","zebra123");
+        user2 = new User("Azim", "john123");
 
 
     }

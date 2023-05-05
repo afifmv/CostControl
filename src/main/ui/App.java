@@ -1,9 +1,8 @@
 package main.ui;
 
-import main.model.Account;
-import main.model.Earning;
+import main.exceptions.UserAlreadyExistsException;
+import main.model.*;
 import main.exceptions.InvalidPriceRangeException;
-import main.model.Expense;
 
 import java.util.Scanner;
 
@@ -12,12 +11,15 @@ public class App {
     private Account account;
     private Earning earning;
     private Expense expense;
+    private User selectedUser;
+    private UserDatabase userDatabase;
 
     boolean keepRunning;
 
     // EFFECTS: Starts the costControl application
     public App() {
         init();
+        loginOrRegisterPrompt();
 
         while (keepRunning) {
             displayMainMenu();
@@ -31,11 +33,77 @@ public class App {
         System.out.println("Goodbye!");
     }
 
+    // EFFECT: Displays the prompt for the user to login or register
+    private void loginOrRegisterPrompt() {
+        System.out.println("Hello, click 1 to login and 2 to register.");
+        String command = input.next();
+        processLoginOrRegisterCommand(command);
+    }
+
+    // EFFECTS: Processes the command from the loginOrRegisterPrompt method
+    private void processLoginOrRegisterCommand(String command) {
+        if (command.equals("1")) {
+            loginUser();
+        } else if (command.equals("2")) {
+            registerUser();
+        }
+    }
+
+    // EFFECTS: Registers a new user in userDatabase
+    private void registerUser() {
+        System.out.println("Welcome to the register menu");
+        String username = askUsername();
+        String password = askPassword();
+
+        try {
+            userDatabase.addUser(new User(username, password));
+        } catch (UserAlreadyExistsException e) {
+            System.out.println("Try again!");
+            registerUser();
+        }
+
+        System.out.println("You are now required to login.");
+        loginUser();
+    }
+
+    // EFFECTS: Asks the end-user to input a password.
+    private String askPassword() {
+        System.out.println("Enter the password: ");
+        String password = input.next();
+        return password;
+    }
+
+    // EFFECTS: Asks the end-user to input a username
+    private String askUsername() {
+        System.out.println("Enter the username: ");
+        String username = input.next();
+        return username;
+    }
+
+    // EFFECTS: Logs the user in if exist in userDatabase
+    private void loginUser() {
+        System.out.println("Welcome to the login menu");
+        String username = askUsername();
+        String password = askPassword();
+
+        selectedUser = new User(username, password);
+
+        if (userDatabase.authenticateUser(selectedUser)) {
+            account = selectedUser.getAccount();
+            return;
+        }
+
+        System.out.println("Please try again!");
+        loginUser();
+
+
+    }
+
     // MODIFIES: this
     // EFFECT: initializes the private fields of app
     private void init() {
+        userDatabase = userDatabase.getInstance();
         input = new Scanner(System.in);
-        createAccount();
         keepRunning = true;
     }
 

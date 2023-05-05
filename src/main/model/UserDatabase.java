@@ -38,6 +38,18 @@ public class UserDatabase {
         users.add(u);
     }
 
+    // REQUIRES: A user object
+    // EFFECTS: Authenticates the user and returns true if exists, else false and prints out a message.
+    public boolean authenticateUser(User user) {
+        boolean returnBool = false;
+        try {
+            returnBool = findUser(user);
+        } catch (UserNotFoundException e) {
+            System.out.println("The given user details do not exist.");
+        }
+        return returnBool;
+    }
+
     public ArrayList<User> getUsers() {
         return users;
     }
