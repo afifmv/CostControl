@@ -30,7 +30,7 @@ public class AccountTest {
     @Test
     public void testAddExpense() throws InvalidPriceRangeException, InvalidCategoryException {
         Expense expense = null;
-        expense = new Expense("Expense #1", 1200, "food");
+        expense = new Expense("Expense #1", 1200, "food", "aed");
         account.addExpenses(expense);
 
         ArrayList<Expense> assertList = new ArrayList<>();
@@ -41,7 +41,7 @@ public class AccountTest {
 
     @Test
     public void testAddEarning() throws InvalidPriceRangeException {
-        Earning earning = new Earning("Expense #1", 1200);
+        Earning earning = new Earning("Expense #1", 1200, "aed");
         account.addEarning(earning);
 
         ArrayList<Earning> assertList = new ArrayList<>();
@@ -52,7 +52,7 @@ public class AccountTest {
 
     @Test
     public void testComputeEarning() throws InvalidPriceRangeException {
-        Earning earning = new Earning("Expense #1", 1200);
+        Earning earning = new Earning("Expense #1", 1200, "cad");
         account.addEarning(earning);
 
         assertEquals(1200, account.computeEarnings());
@@ -60,7 +60,7 @@ public class AccountTest {
 
     @Test
     public void testComputeExpense() throws InvalidPriceRangeException, InvalidCategoryException {
-        Expense expense = new Expense("Expense #1", 1200, "food");
+        Expense expense = new Expense("Expense #1", 1200, "food", "cad");
         account.addExpenses(expense);
 
         assertEquals(1200, account.computeExpenses());
@@ -68,10 +68,10 @@ public class AccountTest {
 
     @Test
     public void testComputeNetAmount() throws InvalidPriceRangeException, InvalidCategoryException {
-        Expense expense = new Expense("Expense #1", 1200, "travel");
+        Expense expense = new Expense("Expense #1", 1200, "travel", "cad");
         account.addExpenses(expense);
 
-        Earning earning = new Earning("Expense #1", 1200);
+        Earning earning = new Earning("Expense #1", 1200, "aed");
         account.addEarning(earning);
 
         assertEquals(0, account.netAmount());

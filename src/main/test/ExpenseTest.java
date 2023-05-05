@@ -14,7 +14,7 @@ public class ExpenseTest {
     @BeforeEach
     public void setup() {
         try {
-            expense = new Expense("UBC tuition fees", 24000, "Food");
+            expense = new Expense("UBC tuition fees", 24000, "Food", "cad");
         } catch (InvalidPriceRangeException e) {
             fail("Unexpected InvalidPriceRangeException");
         } catch (InvalidCategoryException e) {
@@ -25,7 +25,7 @@ public class ExpenseTest {
     @Test
     public void testPriceNegative() {
         try {
-            Expense e = new Expense("Foo", -1, "entertainment");
+            new Expense("Foo", -1, "entertainment", "aed");
             fail("Expected InvalidPriceRangeException");
         } catch (InvalidPriceRangeException ex) {
             assertTrue(true);

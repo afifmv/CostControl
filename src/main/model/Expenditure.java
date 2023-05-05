@@ -9,10 +9,10 @@ public abstract class Expenditure {
     private int price;
     private LocalDate date;
     private CATEGORY category;
+    private CURRENCY currency;
 
-    // TODO: CREATE USER AUTHENTICATION
     // REQUIRES: price, quantity >= 0
-    public Expenditure(String reason, int price) throws InvalidPriceRangeException {
+    public Expenditure(String reason, int price, String currency) throws InvalidPriceRangeException {
         if (price < 0) {
             throw new InvalidPriceRangeException();
         }
@@ -20,6 +20,16 @@ public abstract class Expenditure {
         this.reason = reason;
         this.price = price;
         date = LocalDate.now();
+        processCurrency(currency);
+    }
+
+    private void processCurrency(String currency) {
+        String lowerCaseCurrency = currency.toLowerCase();
+        if (lowerCaseCurrency.equals("aed")) {
+            this.currency = CURRENCY.AED;
+        } else if (lowerCaseCurrency.equals("cad")) {
+            this.currency = CURRENCY.CAD;
+        }
     }
 
     public String getReason() {
@@ -30,8 +40,17 @@ public abstract class Expenditure {
         return this.price;
     }
 
+    public CURRENCY getCurrency() {
+        return this.currency;
+    }
+
+
     private enum CATEGORY {
         TRAVEL, ENTERTAINMENT, FOOD, SCHOOL, OTHER
+    }
+
+    public enum CURRENCY {
+        CAD, AED
     }
 
 }

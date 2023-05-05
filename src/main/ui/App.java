@@ -25,7 +25,7 @@ public class App {
             displayMainMenu();
 
             String command;
-            command = input.next();
+            command = input.nextLine();
 
             processCommand(command);
         }
@@ -36,7 +36,7 @@ public class App {
     // EFFECT: Displays the prompt for the user to login or register
     private void loginOrRegisterPrompt() {
         System.out.println("Hello, click 1 to login and 2 to register.");
-        String command = input.next();
+        String command = input.nextLine();
         processLoginOrRegisterCommand(command);
     }
 
@@ -69,14 +69,14 @@ public class App {
     // EFFECTS: Asks the end-user to input a password.
     private String askPassword() {
         System.out.println("Enter the password: ");
-        String password = input.next();
+        String password = input.nextLine();
         return password;
     }
 
     // EFFECTS: Asks the end-user to input a username
     private String askUsername() {
         System.out.println("Enter the username: ");
-        String username = input.next();
+        String username = input.nextLine();
         return username;
     }
 
@@ -115,13 +115,33 @@ public class App {
         } else if (command.equals("2")) {
             processAddEarning();
         }  else if (command.equals("3")) {
-            account.displayExpenses();
+            displayExpenses();
         } else if (command.equals("4")) {
-            account.displayEarnings();
+            displayEarnings();
         } else {
             System.out.println("Invalid input, try again");
-            command = input.next();
+            command = input.nextLine();
             processCommand(command);
+        }
+    }
+
+    // EFFECTS: Displays earnings in specific currency format as req. by user
+    private void displayEarnings() {
+        String currency = input.nextLine();
+        if (currency.toLowerCase().equals("cad")) {
+            account.displayEarningsInCad();
+        } else {
+            account.displayEarningsInAed();
+        }
+    }
+
+    // EFFECTS: Displays expenses in specific currency format as req. by user
+    private void displayExpenses() {
+        String currency = input.nextLine();
+        if (currency.toLowerCase().equals("cad")) {
+            account.displayExpensesInCad();
+        } else {
+            account.displayExpensesInAed();
         }
     }
 
@@ -138,13 +158,16 @@ public class App {
     // EFFECTS: Creates a new earning object from user end
     private void createEarning() {
         System.out.println("Reason: ");
-        String reason = input.next();
+        String reason = input.nextLine();
 
         System.out.println("Amount: ");
-        int price = Integer.parseInt(input.next());
+        int price = Integer.parseInt(input.nextLine());
+
+        System.out.println("Currency: ");
+        String currency = input.nextLine();
 
         try {
-            earning = new Earning(reason, price);
+            earning = new Earning(reason, price, currency);
         } catch (InvalidPriceRangeException e) {
             System.out.println("Try again!");
             createEarning();
@@ -163,16 +186,19 @@ public class App {
     // EFFECTS: Creates a new expense object from user end
     private void createExpense() {
         System.out.println("Reason: ");
-        String reason = input.next();
+        String reason = input.nextLine();
 
         System.out.println("Amount: ");
-        int price = Integer.parseInt(input.next());
+        int price = Integer.parseInt(input.nextLine());
 
         System.out.println("Category: ");
-        String category = input.next();
+        String category = input.nextLine();
+
+        System.out.println("Currency: ");
+        String currency = input.nextLine();
 
         try {
-            expense = new Expense(reason, price, category);
+            expense = new Expense(reason, price, category, currency);
         } catch (Exception e) {
             System.out.println("Try again!");
             createExpense();
@@ -181,18 +207,12 @@ public class App {
 
     // EFFECTS: Displays main console menu
     private void displayMainMenu() {
+        System.out.println("\n");
         System.out.println("Welcome to Cost Control " + account.getName());
         System.out.println("To add a new expense, click 1.");
         System.out.println("To add a new earning, click 2.");
         System.out.println("To view all expenses, click 3.");
         System.out.println("To view all earnings, click 4.");
         System.out.println("To quit, click 0.");
-    }
-
-    // EFFECTS: Creates account with given name, details, etc.
-    private void createAccount() {
-        System.out.println("Enter the client's name: ");
-        String name = input.next();
-        account = new Account(name);
     }
 }

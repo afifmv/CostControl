@@ -13,7 +13,7 @@ public class EarningTest {
     @BeforeEach
     public void setup() {
         try {
-            expense = new Earning("UBC tuition fees", 24000);
+            expense = new Earning("UBC tuition fees", 24000, "aed");
         } catch (InvalidPriceRangeException e) {
             fail("Unexpected InvalidPriceRangeException");
         }
@@ -22,7 +22,7 @@ public class EarningTest {
     @Test
     public void testPriceNegative() {
         try {
-            Earning e = new Earning("Foo", -1);
+            Earning e = new Earning("Foo", -1, "aed");
             fail("Expected InvalidPriceRangeException");
         } catch (InvalidPriceRangeException ex) {
             assertTrue(true);

@@ -6,8 +6,8 @@ import main.exceptions.InvalidPriceRangeException;
 public class Expense extends Expenditure {
     private CATEGORY category;
 
-    public Expense(String reason, int price, String category) throws InvalidPriceRangeException, InvalidCategoryException {
-        super(reason, price);
+    public Expense(String reason, int price, String category, String currency) throws InvalidPriceRangeException, InvalidCategoryException {
+        super(reason, price, currency);
         processCategory(category);
     }
 

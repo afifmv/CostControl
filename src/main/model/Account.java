@@ -9,6 +9,9 @@ public class Account {
     private List<Earning> earnings;
     private String name;
 
+    private final double aedToCad = 0.37;
+    private final double cadToAed = 2.72;
+
     public Account(String name) {
         this.name = name;
         expenses = new ArrayList<>();
@@ -37,17 +40,54 @@ public class Account {
         return totalExpenses;
     }
 
-    // EFFECTS: Displays all expenses in a specific format
-    public void displayExpenses() {
+//    // EFFECTS: Displays all expenses in a specific format
+//    public void displayExpenses(String currency) {
+//        String lowerCaseCurrency = currency.toLowerCase();
+//        if (lowerCaseCurrency.equals("aed")) {
+//            displayExpensesInAed();
+//        } else {
+//            displayExpensesInCad();
+//        }
+//    }
+
+    public void displayExpensesInCad() {
         for (Expense e: expenses) {
-            System.out.println("You have spent: " + e.getPrice() + "\n for " + e.getReason());
+            if (e.getCurrency() == Expenditure.CURRENCY.CAD) {
+                System.out.println("You have spent: " + e.getPrice() + " for " + e.getReason());
+            } else {
+                System.out.println("You have spent: " + e.getPrice() * aedToCad + " for " + e.getReason());
+            }
+        }
+    }
+
+    public void displayExpensesInAed() {
+        for (Expense e: expenses) {
+            if (e.getCurrency() == Expenditure.CURRENCY.AED) {
+                System.out.println("You have spent: " + e.getPrice() + " for " + e.getReason());
+            } else {
+                System.out.println("You have spent: " + e.getPrice() * cadToAed + " for " + e.getReason());
+            }
         }
     }
 
     // EFFECTS: Display all earnings in a specific format
-    public void displayEarnings() {
+    public void displayEarningsInAed() {
         for (Earning e: earnings) {
-            System.out.println("You have spent: " + e.getPrice() + "\n for " + e.getReason());
+            if (e.getCurrency() == Expenditure.CURRENCY.AED) {
+                System.out.println("You have earned: " + e.getPrice() + " for " + e.getReason());
+            } else {
+                System.out.println("You have earned: " + e.getPrice() * cadToAed + " for " + e.getReason());
+            }
+        }
+    }
+
+    public void displayEarningsInCad() {
+        for (Earning e: earnings) {
+            if (e.getCurrency() == Expenditure.CURRENCY.CAD) {
+                System.out.println("You have earned: " + e.getPrice() + " for " + e.getReason());
+            } else {
+                System.out.println("You have earned: " + e.getPrice() * aedToCad + " for " + e.getReason());
+            }
         }
     }
 
